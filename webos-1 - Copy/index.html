@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FishOSv0.3</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="content">
+<div id="desktopApps">
+    <div class="desktop-icon" id="fileExplorerIcon">
+      <img
+        class="desktop-icon-image"
+        src="https://cdn-icons-png.flaticon.com/512/716/716784.png"
+        alt="Folder"
+      >
+      <span class="desktop-icon-label">
+        Fish Explorer.exe
+      </span>
+    </div>
+
+    <div class="desktop-icon" id="wallpaperIcon">
+      <img
+        class="desktop-icon-image"
+        src="https://cdn-icons-png.flaticon.com/512/924/924514.png"
+        alt="Settings"
+      >
+      <span class="desktop-icon-label">
+        Wallpaper.exe
+      </span>
+    </div>
+</div>
+
+
+
+  <!-- Welcome -->
+  <div
+    id="welcome"
+    class="window"
+    style="top:60px;left:120px;"
+  >
+    <div class="windowheader">
+      <span>welcome.txt</span>
+      <button id="welcomeclose" class="windowclose">×</button>
+    </div>
+
+    <div class="windowcontent">
+      <h2>Welcome to FishOS</h2>
+      <p>Your aquatic desktop environment.</p>
+    </div>
+  </div>
+
+  <!-- FishFinder -->
+  <div
+    id="fishfinder"
+    class="window"
+    style="top:120px;left:220px;width:500px;height:400px;"
+  >
+    <div class="windowheader">
+      <span>Fishfinder</span>
+      <button id="fishfinderclose" class="windowclose">×</button>
+    </div>
+
+    <div
+      id="fishfinderContent"
+      class="windowcontent"
+    >
+    </div>
+  </div>
+
+  <!-- FishTunes -->
+  <div
+    id="fishtunes"
+    class="window"
+    style="top:140px;left:350px;width:500px;height:250px;"
+  >
+    <div class="windowheader">
+      <span>FishTunes</span>
+      <button id="fishtunesclose" class="windowclose">×</button>
+    </div>
+
+    <div class="windowcontent">
+      <h3>Now Playing</h3>
+
+      <p id="songName">
+        No song selected
+      </p>
+
+      <br>
+
+      <audio
+        id="audioPlayer"
+        controls
+        style="width:100%;"
+      >
+        <source
+          src="music/song.mp3"
+          type="audio/mpeg"
+        >
+      </audio>
+    </div>
+  </div>
+
+  <!-- File Explorer -->
+  <div
+    id="fileExplorer"
+    class="window"
+    style="top:120px;left:180px;width:650px;height:450px;"
+  >
+    <div class="windowheader">
+      <span>Fish Explorer</span>
+
+      <button
+        id="fileExplorerClose"
+        class="windowclose"
+      >
+        ×
+      </button>
+    </div>
+
+    <div
+      class="windowcontent"
+      id="fileExplorerContent"
+    >
+    </div>
+  </div>
+
+  <!-- FishPad -->
+  <div
+    id="notepad"
+    class="window"
+    style="top:180px;left:280px;width:600px;height:450px;"
+  >
+    <div class="windowheader">
+      <span>FishPad</span>
+      <button id="notepadclose" class="windowclose">×</button>
+    </div>
+
+    <div class="windowcontent">
+      <button id="saveNoteButton">
+        Save Note
+      </button>
+
+      <br><br>
+
+      <textarea
+        id="notepadText"
+        style="
+          width:100%;
+          height:320px;
+          resize:none;
+          padding:10px;
+          font-family:monospace;
+        "
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Fish Clicker -->
+  <div
+    id="fishclicker"
+    class="window"
+    style="top:200px;left:300px;width:450px;height:400px;"
+  >
+    <div class="windowheader">
+      <span>Fish Clicker</span>
+
+      <button
+        id="fishclickerclose"
+        class="windowclose"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="windowcontent">
+      <h2>Fish Clicker</h2>
+
+      <p>
+        Fish Coins:
+        <span id="coinCount">0</span>
+      </p>
+
+      <br>
+
+      <img
+        id="clickerFish"
+        src="images/clownfish.png"
+        style="
+          width:150px;
+          cursor:pointer;
+          display:block;
+          margin:auto;
+        "
+      >
+
+      <br>
+
+      <button id="buyNet">
+        Better Net (10 Coins)
+      </button>
+
+      <button id="buyAuto">
+        Auto Fisher (50 Coins)
+      </button>
+
+      <p id="clickPower">
+        Coins Per Click: 1
+      </p>
+
+      <p id="autoPower">
+        Auto Fishers: 0
+      </p>
+    </div>
+  </div>
+
+  <!-- Wallpaper Settings -->
+<div
+  id="wallpaper"
+  class="window"
+  style="top:100px;left:400px;width:500px;height:500px;"
+>
+  <div class="windowheader">
+    <span>Wallpaper Settings</span>
+    <button id="wallpaperclose" class="windowclose">×</button>
+  </div>
+
+  <div class="windowcontent">
+    <h3>Select a Wallpaper</h3>
+    <div id="wallpaperGrid" class="wallpaper-grid">
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <span class="taskbar-label">
+      FishOS • Double-click files to open them
+    </span>
+
+    <span id="timeElement" class="time"></span>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
