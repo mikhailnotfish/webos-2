@@ -238,6 +238,12 @@
 
 </div>
 
+<div class="desktopIcon" id="translatorIcon">
+  
+  <p>Fish Translator</p>
+</div>
+
+
 </div>
 
 
@@ -251,8 +257,37 @@
   </div>
 </div>
 
+<div id="fishTranslatorWindow">
+  <div class="translator-header">
+    🗣️ Fish Translator
+    <button id="translatorClose" class="translator-close">✕</button>
+  </div>
+  <div class="translator-content">
+    <textarea
+      id="translatorInput"
+      class="translator-input"
+      placeholder="Type something to translate..."
+    ></textarea>
+
+    <div class="translator-modes">
+      <button class="translator-btn active" data-mode="bubble">Bubble</button>
+      <button class="translator-btn" data-mode="blub">Blub</button>
+      <button class="translator-btn" data-mode="reverse">Glub</button>
+      <button class="translator-btn" data-mode="sparkle">Sparkle</button>
+      <button class="translator-btn" data-mode="fancy">Fancy</button>
+    </div>
+
+    <div class="translator-output" id="translatorOutput">
+      Type something!
+    </div>
+  </div>
+</div>
+
+
 <script src="script.js"></script>
 
 </body>
 </html>
+
+
 

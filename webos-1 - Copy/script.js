@@ -173,6 +173,98 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ===== FISH TRANSLATOR =====
+function initFishTranslator() {
+  const translatorWindow = document.getElementById('fishTranslatorWindow');
+  const translatorIcon = document.getElementById('translatorIcon');
+  const input = document.getElementById('translatorInput');
+  const output = document.getElementById('translatorOutput');
+  const modeButtons = document.querySelectorAll('.translator-btn');
+  let currentMode = 'bubble';
+
+  if (!translatorWindow) return;
+
+  // Translation modes
+  const modes = {
+    bubble: (text) => {
+      return text
+        .split('')
+        .map((char) => {
+          if (/[aeiouAEIOU]/.test(char)) {
+            const bubbles = ['◯', '◉', '○'];
+            return bubbles[Math.floor(Math.random() * bubbles.length)];
+          }
+          return char;
+        })
+        .join('');
+    },
+    blub: (text) => {
+      return text
+        .split(' ')
+        .map(() => ['blub', 'glub', 'bloob'][Math.floor(Math.random() * 3)])
+        .join(' ');
+    },
+    reverse: (text) => {
+      return text
+        .split('')
+        .reverse()
+        .join('')
+        .replace(/[aeiouAEIOU]/g, (match) => {
+          const replacements = { a: '@', e: '3', i: '!', o: '0', u: '∪', A: '@', E: '3', I: '!', O: '0', U: '∪' };
+          return replacements[match] || match;
+        });
+    },
+    sparkle: (text) => {
+      return text
+        .split('')
+        .map((char) => `✨${char}✨`)
+        .join('');
+    },
+    fancy: (text) => {
+      return text
+        .toUpperCase()
+        .replace(/O/g, '◯')
+        .replace(/A/g, '∆')
+        .replace(/E/g, '∑')
+        .replace(/I/g, '!')
+        .split('')
+        .join(' ');
+    },
+  };
+
+  // Translate on input
+  input.addEventListener('input', () => {
+    output.textContent = modes[currentMode](input.value) || 'Type something!';
+  });
+
+  // Mode buttons
+  modeButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modeButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMode = btn.dataset.mode;
+      output.textContent = modes[currentMode](input.value) || 'Type something!';
+    });
+  });
+
+  // Open translator
+  translatorIcon.addEventListener('dblclick', () => {
+    translatorWindow.classList.add('active');
+    bringToFront(translatorWindow);
+    input.focus();
+  });
+
+  // Close button
+  document.getElementById('translatorClose').addEventListener('click', () => {
+    translatorWindow.classList.remove('active');
+  });
+
+  // Dragging
+  const header = document.querySelector('.translator-header');
+  makeDraggable(translatorWindow, header);
+}
+
+
   // ===== WALLPAPER APP =====
   const wallpaperData = [
     {
@@ -355,6 +447,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initFishfinder();
   initNotepad();
   initFishClicker();
+  initFishTranslator();
+
 
   // Initialize wallpaper grid when window opens
   document.getElementById("wallpaperIcon")?.addEventListener("dblclick", () => {
