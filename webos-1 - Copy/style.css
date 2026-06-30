@@ -300,3 +300,19 @@ body {
   background: #ff5252;
 }
 
+#desktopApps {
+  position: relative;
+  z-index: 1;
+}
+
+.window {
+  position: absolute;
+  z-index: 10;
+}
+
+.desktop-icon {
+  position: relative;
+  z-index: 100;
+}
+
+

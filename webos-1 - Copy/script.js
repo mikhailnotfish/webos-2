@@ -57,6 +57,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function makeDraggable(windowElement) {
+    const header = windowElement.querySelector('.windowheader');
+    if (!header) return;
+    
+    let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
+    
+    header.addEventListener('mousedown', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      offsetX = windowElement.offsetLeft;
+      offsetY = windowElement.offsetTop;
+      
+      bringToFront(windowElement);
+      
+      function moveWindow(moveEvent) {
+        windowElement.style.left = (offsetX + moveEvent.clientX - mouseX) + 'px';
+        windowElement.style.top = (offsetY + moveEvent.clientY - mouseY) + 'px';
+      }
+      
+      function stopDragging() {
+        document.removeEventListener('mousemove', moveWindow);
+        document.removeEventListener('mouseup', stopDragging);
+      }
+      
+      document.addEventListener('mousemove', moveWindow);
+      document.addEventListener('mouseup', stopDragging);
+    });
+  }
+
   function createWindowOpenListener(iconId, windowId) {
     const icon = document.getElementById(iconId);
     const win = document.getElementById(windowId);
@@ -80,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== INITIALIZATION =====
   updateTime();
   setInterval(updateTime, 1000);
 
@@ -143,11 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "fish-card";
       card.innerHTML = `
         <h3>${fish.name}</h3>
-        <img
-          src="${fish.image}"
-          alt="${fish.name}"
-          style="width:100%;margin-bottom:20px;"
-        >
+        <img src="${fish.image}" alt="${fish.name}" style="width:100%;margin-bottom:20px;">
       `;
       content.appendChild(card);
     });
@@ -174,96 +198,93 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===== FISH TRANSLATOR =====
-function initFishTranslator() {
-  const translatorWindow = document.getElementById('fishTranslatorWindow');
-  const translatorIcon = document.getElementById('translatorIcon');
-  const input = document.getElementById('translatorInput');
-  const output = document.getElementById('translatorOutput');
-  const modeButtons = document.querySelectorAll('.translator-btn');
-  let currentMode = 'bubble';
+  function initFishTranslator() {
+    const translatorWindow = document.getElementById('fishTranslatorWindow');
+    const translatorIcon = document.getElementById('translatorIcon');
+    const input = document.getElementById('translatorInput');
+    const output = document.getElementById('translatorOutput');
+    const modeButtons = document.querySelectorAll('.translator-btn');
+    let currentMode = 'bubble';
 
-  if (!translatorWindow) return;
+    if (!translatorWindow || !input || !output) return;
 
-  // Translation modes
-  const modes = {
-    bubble: (text) => {
-      return text
-        .split('')
-        .map((char) => {
-          if (/[aeiouAEIOU]/.test(char)) {
-            const bubbles = ['◯', '◉', '○'];
-            return bubbles[Math.floor(Math.random() * bubbles.length)];
-          }
-          return char;
-        })
-        .join('');
-    },
-    blub: (text) => {
-      return text
-        .split(' ')
-        .map(() => ['blub', 'glub', 'bloob'][Math.floor(Math.random() * 3)])
-        .join(' ');
-    },
-    reverse: (text) => {
-      return text
-        .split('')
-        .reverse()
-        .join('')
-        .replace(/[aeiouAEIOU]/g, (match) => {
-          const replacements = { a: '@', e: '3', i: '!', o: '0', u: '∪', A: '@', E: '3', I: '!', O: '0', U: '∪' };
-          return replacements[match] || match;
-        });
-    },
-    sparkle: (text) => {
-      return text
-        .split('')
-        .map((char) => `✨${char}✨`)
-        .join('');
-    },
-    fancy: (text) => {
-      return text
-        .toUpperCase()
-        .replace(/O/g, '◯')
-        .replace(/A/g, '∆')
-        .replace(/E/g, '∑')
-        .replace(/I/g, '!')
-        .split('')
-        .join(' ');
-    },
-  };
+    const modes = {
+      bubble: (text) => {
+        return text
+          .split('')
+          .map((char) => {
+            if (/[aeiouAEIOU]/.test(char)) {
+              const bubbles = ['◯', '◉', '○'];
+              return bubbles[Math.floor(Math.random() * bubbles.length)];
+            }
+            return char;
+          })
+          .join('');
+      },
+      blub: (text) => {
+        return text
+          .split(' ')
+          .map(() => ['blub', 'glub', 'bloob'][Math.floor(Math.random() * 3)])
+          .join(' ');
+      },
+      reverse: (text) => {
+        return text
+          .split('')
+          .reverse()
+          .join('')
+          .replace(/[aeiouAEIOU]/g, (match) => {
+            const replacements = { a: '@', e: '3', i: '!', o: '0', u: '∪', A: '@', E: '3', I: '!', O: '0', U: '∪' };
+            return replacements[match] || match;
+          });
+      },
+      sparkle: (text) => {
+        return text
+          .split('')
+          .map((char) => `✨${char}✨`)
+          .join('');
+      },
+      fancy: (text) => {
+        return text
+          .toUpperCase()
+          .replace(/O/g, '◯')
+          .replace(/A/g, '∆')
+          .replace(/E/g, '∑')
+          .replace(/I/g, '!')
+          .split('')
+          .join(' ');
+      },
+    };
 
-  // Translate on input
-  input.addEventListener('input', () => {
-    output.textContent = modes[currentMode](input.value) || 'Type something!';
-  });
-
-  // Mode buttons
-  modeButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      modeButtons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.dataset.mode;
+    input.addEventListener('input', () => {
       output.textContent = modes[currentMode](input.value) || 'Type something!';
     });
-  });
 
-  // Open translator
-  translatorIcon.addEventListener('dblclick', () => {
-    translatorWindow.classList.add('active');
-    bringToFront(translatorWindow);
-    input.focus();
-  });
+    modeButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        modeButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.dataset.mode;
+        output.textContent = modes[currentMode](input.value) || 'Type something!';
+      });
+    });
 
-  // Close button
-  document.getElementById('translatorClose').addEventListener('click', () => {
-    translatorWindow.classList.remove('active');
-  });
+    if (translatorIcon) {
+      translatorIcon.addEventListener('dblclick', () => {
+        translatorWindow.style.display = 'flex';
+        bringToFront(translatorWindow);
+        input.focus();
+      });
+    }
 
-  // Dragging
-  const header = document.querySelector('.translator-header');
-  makeDraggable(translatorWindow, header);
-}
+    const closeBtn = document.getElementById('translatorClose');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        translatorWindow.style.display = 'none';
+      });
+    }
 
+    makeDraggable(translatorWindow);
+  }
 
   // ===== WALLPAPER APP =====
   const wallpaperData = [
@@ -292,8 +313,6 @@ function initFishTranslator() {
       url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&h=800&fit=crop"
     }
   ];
-
-
 
   function initWallpaper() {
     const wallpaperGrid = document.getElementById("wallpaperGrid");
@@ -401,62 +420,47 @@ function initFishTranslator() {
   }
 
   // ===== WINDOW SETUP =====
-  // File Explorer
   createWindowOpenListener("fileExplorerIcon", "fileExplorer");
   createWindowCloseListener("fileExplorer", "fileExplorerClose");
   dragElement(document.getElementById("fileExplorer"));
 
-  // Welcome
   createWindowOpenListener("welcomeIcon", "welcome");
   createWindowCloseListener("welcome", "welcomeclose");
   dragElement(document.getElementById("welcome"));
 
-  // Fish Finder
   createWindowOpenListener("fishfinderIcon", "fishfinder");
   createWindowCloseListener("fishfinder", "fishfinderclose");
-  dragElement(document.getElementById("fishfinder"));
+    dragElement(document.getElementById("fishfinder"));
 
-  // Notepad
   createWindowOpenListener("notepadIcon", "notepad");
   createWindowCloseListener("notepad", "notepadclose");
   dragElement(document.getElementById("notepad"));
 
-  // Fish Tunes
-  createWindowOpenListener("fishtunesIcon", "fishtunes");
-  createWindowCloseListener("fishtunes", "fishtunesclose");
+  createWindowOpenListener("fishtanesIcon", "fishtunes");
+  createWindowCloseListener("fishtunes", "ftunesclose");
   dragElement(document.getElementById("fishtunes"));
 
-  // Fish Clicker
   createWindowOpenListener("fishclickerIcon", "fishclicker");
   createWindowCloseListener("fishclicker", "fishclickerclose");
   dragElement(document.getElementById("fishclicker"));
 
-  // Wallpaper
   createWindowOpenListener("wallpaperIcon", "wallpaper");
   createWindowCloseListener("wallpaper", "wallpaperclose");
   dragElement(document.getElementById("wallpaper"));
 
-  // Make all windows draggable by clicking anywhere on them
-  document.querySelectorAll(".window").forEach(win => {
-    win.addEventListener("mousedown", () => bringToFront(win));
-  });
-
-  // ===== INITIALIZE ALL APPS =====
-  loadSavedWallpaper();
+  // ===== INITIALIZE APPS =====
   initFileExplorer();
   initFishfinder();
   initNotepad();
-  initFishClicker();
   initFishTranslator();
-
-
-  // Initialize wallpaper grid when window opens
-  document.getElementById("wallpaperIcon")?.addEventListener("dblclick", () => {
-    initWallpaper();
-  });
-
+  initWallpaper();
+  loadSavedWallpaper();
+  initFishClicker();
 });
 
+
+
+        
 
 
 

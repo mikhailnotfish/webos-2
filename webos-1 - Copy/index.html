@@ -34,6 +34,13 @@
         Wallpaper.exe
       </span>
     </div>
+
+    <div class="desktop-icon" id="translatorIcon">
+      <span style="font-size: 48px;">🗣️</span>
+      <span class="desktop-icon-label">
+        Fish Translator.exe
+      </span>
+    </div>
 </div>
 
 
@@ -81,7 +88,7 @@
   >
     <div class="windowheader">
       <span>FishTunes</span>
-      <button id="fishtunesclose" class="windowclose">×</button>
+      <button id="ftunesclose" class="windowclose">×</button>
     </div>
 
     <div class="windowcontent">
@@ -235,14 +242,39 @@
     <div id="wallpaperGrid" class="wallpaper-grid">
     </div>
   </div>
-
 </div>
 
-<div class="desktopIcon" id="translatorIcon">
-  
-  <p>Fish Translator</p>
-</div>
+  <!-- Fish Translator -->
+  <div
+    id="fishTranslatorWindow"
+    class="window"
+    style="top:250px;left:450px;width:500px;height:400px;"
+  >
+    <div class="windowheader">
+      <span>Fish Translator</span>
+      <button id="translatorClose" class="windowclose">×</button>
+    </div>
+    <div class="windowcontent">
+      <textarea
+        id="translatorInput"
+        class="translator-input"
+        placeholder="Type something to translate..."
+        style="width:100%;height:100px;padding:10px;margin-bottom:10px;font-family:monospace;"
+      ></textarea>
 
+      <div class="translator-modes" style="margin-bottom:10px;">
+        <button class="translator-btn active" data-mode="bubble">Bubble</button>
+        <button class="translator-btn" data-mode="blub">Blub</button>
+        <button class="translator-btn" data-mode="reverse">Glub</button>
+        <button class="translator-btn" data-mode="sparkle">Sparkle</button>
+        <button class="translator-btn" data-mode="fancy">Fancy</button>
+      </div>
+
+      <div class="translator-output" id="translatorOutput" style="background:#f0f0f0;padding:10px;border-radius:5px;min-height:150px;word-wrap:break-word;">
+        Type something!
+      </div>
+    </div>
+  </div>
 
 </div>
 
@@ -255,39 +287,12 @@
 
     <span id="timeElement" class="time"></span>
   </div>
-</div>
-
-<div id="fishTranslatorWindow">
-  <div class="translator-header">
-    🗣️ Fish Translator
-    <button id="translatorClose" class="translator-close">✕</button>
-  </div>
-  <div class="translator-content">
-    <textarea
-      id="translatorInput"
-      class="translator-input"
-      placeholder="Type something to translate..."
-    ></textarea>
-
-    <div class="translator-modes">
-      <button class="translator-btn active" data-mode="bubble">Bubble</button>
-      <button class="translator-btn" data-mode="blub">Blub</button>
-      <button class="translator-btn" data-mode="reverse">Glub</button>
-      <button class="translator-btn" data-mode="sparkle">Sparkle</button>
-      <button class="translator-btn" data-mode="fancy">Fancy</button>
-    </div>
-
-    <div class="translator-output" id="translatorOutput">
-      Type something!
-    </div>
-  </div>
-</div>
-
 
 <script src="script.js"></script>
 
 </body>
 </html>
+
 
 
 
