@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   let highestZ = 100;
 
-  // ===== CORE FUNCTIONS =====
+  
   function bringToFront(element) {
     highestZ++;
     element.style.zIndex = highestZ;
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTime();
   setInterval(updateTime, 1000);
 
-  // ===== FILE EXPLORER =====
+  
   function initFileExplorer() {
     const explorerFiles = [
       { name: "welcome.txt", type: "text", app: "welcome" },
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== FISH FINDER =====
+  
   function initFishfinder() {
     const fishData = [
       { name: "Pleco", image: "images/placofish.png" },
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===== NOTEPAD (FISHPAD) =====
+  
   function initNotepad() {
     const notepadText = document.getElementById("notepadText");
     const saveButton = document.getElementById("saveNoteButton");
@@ -197,96 +197,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== FISH TRANSLATOR =====
-  function initFishTranslator() {
-    const translatorWindow = document.getElementById('fishTranslatorWindow');
-    const translatorIcon = document.getElementById('translatorIcon');
-    const input = document.getElementById('translatorInput');
-    const output = document.getElementById('translatorOutput');
-    const modeButtons = document.querySelectorAll('.translator-btn');
-    let currentMode = 'bubble';
+function initFishTranslator() {
+  const translatorInput = document.getElementById('translatorInput');
+  const translatorOutput = document.getElementById('translatorOutput');
+  const translatorClose = document.getElementById('translatorClose');
+  const translatorWindow = document.getElementById('fishTranslatorWindow');
+  const translatorIcon = document.getElementById('translatorIcon');
 
-    if (!translatorWindow || !input || !output) return;
-
-    const modes = {
-      bubble: (text) => {
-        return text
-          .split('')
-          .map((char) => {
-            if (/[aeiouAEIOU]/.test(char)) {
-              const bubbles = ['◯', '◉', '○'];
-              return bubbles[Math.floor(Math.random() * bubbles.length)];
-            }
-            return char;
-          })
-          .join('');
-      },
-      blub: (text) => {
-        return text
-          .split(' ')
-          .map(() => ['blub', 'glub', 'bloob'][Math.floor(Math.random() * 3)])
-          .join(' ');
-      },
-      reverse: (text) => {
-        return text
-          .split('')
-          .reverse()
-          .join('')
-          .replace(/[aeiouAEIOU]/g, (match) => {
-            const replacements = { a: '@', e: '3', i: '!', o: '0', u: '∪', A: '@', E: '3', I: '!', O: '0', U: '∪' };
-            return replacements[match] || match;
-          });
-      },
-      sparkle: (text) => {
-        return text
-          .split('')
-          .map((char) => `✨${char}✨`)
-          .join('');
-      },
-      fancy: (text) => {
-        return text
-          .toUpperCase()
-          .replace(/O/g, '◯')
-          .replace(/A/g, '∆')
-          .replace(/E/g, '∑')
-          .replace(/I/g, '!')
-          .split('')
-          .join(' ');
-      },
-    };
-
-    input.addEventListener('input', () => {
-      output.textContent = modes[currentMode](input.value) || 'Type something!';
-    });
-
-    modeButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        modeButtons.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentMode = btn.dataset.mode;
-        output.textContent = modes[currentMode](input.value) || 'Type something!';
-      });
-    });
-
-    if (translatorIcon) {
-      translatorIcon.addEventListener('dblclick', () => {
-        translatorWindow.style.display = 'flex';
-        bringToFront(translatorWindow);
-        input.focus();
-      });
-    }
-
-    const closeBtn = document.getElementById('translatorClose');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        translatorWindow.style.display = 'none';
-      });
-    }
-
-    makeDraggable(translatorWindow);
+  
+  function glubTranslate(text) {
+    const fishSounds = ['blub', 'glub', 'bloob', 'blob', 'blop', 'glug'];
+    const words = text.split(' ');
+    return words.map((word, i) => fishSounds[i % fishSounds.length]).join(' ');
   }
 
-  // ===== WALLPAPER APP =====
+  translatorInput.addEventListener('input', () => {
+    const input = translatorInput.value;
+    if (input.trim()) {
+      translatorOutput.textContent = glubTranslate(input);
+    } else {
+      translatorOutput.textContent = 'Type something!';
+    }
+  });
+
+  translatorClose.addEventListener('click', () => {
+    translatorWindow.style.display = 'none';
+  });
+
+  translatorIcon.addEventListener('dblclick', () => {
+    translatorWindow.style.display = 'block';
+    makeDraggable(translatorWindow);
+  });
+}
+
+
+  
   const wallpaperData = [
     {
       name: "Default clownfish wallpaper",
@@ -359,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ===== FISH CLICKER GAME =====
+  
   function initFishClicker() {
     let fishCoins = Number(localStorage.getItem("fishCoins")) || 0;
     let clickPower = Number(localStorage.getItem("clickPower")) || 1;
@@ -419,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateClicker();
   }
 
-  // ===== WINDOW SETUP =====
+  
   createWindowOpenListener("fileExplorerIcon", "fileExplorer");
   createWindowCloseListener("fileExplorer", "fileExplorerClose");
   dragElement(document.getElementById("fileExplorer"));
@@ -448,7 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
   createWindowCloseListener("wallpaper", "wallpaperclose");
   dragElement(document.getElementById("wallpaper"));
 
-  // ===== INITIALIZE APPS =====
+  
   initFileExplorer();
   initFishfinder();
   initNotepad();

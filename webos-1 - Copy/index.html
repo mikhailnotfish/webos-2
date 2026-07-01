@@ -36,16 +36,21 @@
     </div>
 
     <div class="desktop-icon" id="translatorIcon">
-      <span style="font-size: 48px;">🗣️</span>
-      <span class="desktop-icon-label">
-        Fish Translator.exe
-      </span>
-    </div>
+  <img
+    class="desktop-icon-image"
+    src="https://cdn-icons-png.flaticon.com/512/716/716784.png"
+    alt="Folder"
+  >
+  <span class="desktop-icon-label">
+    Fish Translator.exe
+  </span>
+</div>
+
 </div>
 
 
 
-  <!-- Welcome -->
+ 
   <div
     id="welcome"
     class="window"
@@ -62,7 +67,7 @@
     </div>
   </div>
 
-  <!-- FishFinder -->
+ 
   <div
     id="fishfinder"
     class="window"
@@ -80,7 +85,7 @@
     </div>
   </div>
 
-  <!-- FishTunes -->
+ 
   <div
     id="fishtunes"
     class="window"
@@ -113,7 +118,7 @@
     </div>
   </div>
 
-  <!-- File Explorer -->
+  
   <div
     id="fileExplorer"
     class="window"
@@ -137,7 +142,7 @@
     </div>
   </div>
 
-  <!-- FishPad -->
+  
   <div
     id="notepad"
     class="window"
@@ -168,7 +173,7 @@
     </div>
   </div>
 
-  <!-- Fish Clicker -->
+  
   <div
     id="fishclicker"
     class="window"
@@ -226,7 +231,7 @@
     </div>
   </div>
 
-  <!-- Wallpaper Settings -->
+ 
 <div
   id="wallpaper"
   class="window"
@@ -244,12 +249,8 @@
   </div>
 </div>
 
-  <!-- Fish Translator -->
-  <div
-    id="fishTranslatorWindow"
-    class="window"
-    style="top:250px;left:450px;width:500px;height:400px;"
-  >
+   
+  <div id="fishTranslatorWindow" class="window" style="top:250px;left:450px;width:500px;height:400px;">
     <div class="windowheader">
       <span>Fish Translator</span>
       <button id="translatorClose" class="windowclose">×</button>
@@ -257,29 +258,19 @@
     <div class="windowcontent">
       <textarea
         id="translatorInput"
-        class="translator-input"
         placeholder="Type something to translate..."
-        style="width:100%;height:100px;padding:10px;margin-bottom:10px;font-family:monospace;"
+        style="width:calc(100% - 20px);height:80px;resize:none;padding:10px;margin-bottom:10px;font-family:monospace;border:none;background-color:#f0f0f0;"
       ></textarea>
 
-      <div class="translator-modes" style="margin-bottom:10px;">
-        <button class="translator-btn active" data-mode="bubble">Bubble</button>
-        <button class="translator-btn" data-mode="blub">Blub</button>
-        <button class="translator-btn" data-mode="reverse">Glub</button>
-        <button class="translator-btn" data-mode="sparkle">Sparkle</button>
-        <button class="translator-btn" data-mode="fancy">Fancy</button>
-      </div>
-
-      <div class="translator-output" id="translatorOutput" style="background:#f0f0f0;padding:10px;border-radius:5px;min-height:150px;word-wrap:break-word;">
+      <div id="translatorOutput" style="padding:10px;min-height:150px;word-wrap:break-word;color:#333;">
         Type something!
       </div>
     </div>
   </div>
-
 </div>
 
 
-  <!-- Taskbar -->
+
   <div class="taskbar">
     <span class="taskbar-label">
       FishOS • Double-click files to open them

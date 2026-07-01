@@ -29,6 +29,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .desktop-icon {
@@ -38,6 +40,8 @@ body {
   align-items: center;
   cursor: pointer;
   user-select: none;
+  position: relative;
+  z-index: 100;
 }
 
 .desktop-icon-image {
@@ -64,6 +68,7 @@ body {
   border: 1px solid #808080;
   border-radius: 4px;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.35);
+  z-index: 10;
 }
 
 .windowheader {
@@ -136,6 +141,7 @@ body {
   border-radius: 6px;
   margin-top: 5px;
 }
+
 .wallpaper-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -176,10 +182,6 @@ body {
   color: black;
 }
 
-.background {
-  position: fixed;
-}
-
 #fileExplorerIcon {
   position: absolute;
   top: 20px;
@@ -188,131 +190,35 @@ body {
 
 #wallpaperIcon {
   position: absolute;
-  top: 120px;  /* Adjust this value to position it directly under File Explorer */
-  left: 20px;  /* Same left position as File Explorer */
+  top: 120px;
+  left: 20px;
 }
 
 #fishTranslatorWindow {
-  width: 450px;
-  height: 350px;
-  background: linear-gradient(135deg, #1e90ff, #00bfff);
-  border: 3px solid #00ced1;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  display: none;
-  position: absolute;
-  top: 150px;
-  left: 200px;
-  z-index: 100;
-  flex-direction: column;
+  width: 500px;
+  height: 400px;
+  top: 300px;  
+  left: 20px;
 }
 
-#fishTranslatorWindow.active {
-  display: flex;
-}
 
-.translator-header {
-  background: #00ced1;
-  color: white;
-  padding: 10px;
-  font-weight: bold;
-  cursor: move;
-  border-radius: 7px 7px 0 0;
-  user-select: none;
-}
-
-.translator-content {
-  padding: 15px;
-  overflow-y: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.translator-input, .translator-output {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #00bfff;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+#translatorInput {
   box-sizing: border-box;
-  background: white;
-  color: #333;
+  border: 1px solid #ddd !important;
 }
 
-.translator-input {
-  min-height: 60px;
-  resize: vertical;
-}
-
-.translator-output {
-  min-height: 60px;
-  background: #e0ffff;
-  color: #006666;
-  font-weight: bold;
-  overflow-y: auto;
-  word-break: break-word;
-}
-
-.translator-modes {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.translator-btn {
-  padding: 8px 12px;
-  background: #ff6b6b;
-  color: white;
+#translatorOutput {
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 12px;
-  transition: background 0.2s;
 }
+  
 
-.translator-btn:hover {
-  background: #ff5252;
-}
-
-.translator-btn.active {
-  background: #4ecdc4;
-}
-
-.translator-close {
+#translatorIcon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-weight: bold;
+  top: 220px;
+  left: 20px;
 }
 
-.translator-close:hover {
-  background: #ff5252;
-}
 
-#desktopApps {
-  position: relative;
-  z-index: 1;
-}
-
-.window {
-  position: absolute;
-  z-index: 10;
-}
-
-.desktop-icon {
-  position: relative;
-  z-index: 100;
-}
 
 
